@@ -1,6 +1,6 @@
 import os
 SOFIT = {"ם":"מ","ך":"כ","ן":"נ","ף":"פ","ץ":"צ"}
-HEBREW = set("אבגדהוזחטיכלמנסעפצקרשת")
+HEBREW = set("אבגדהוזחטיכךלמםנןסעפףצץקרשת")
 
 def normalize_text(text):
 	return "".join(SOFIT.get(ch, ch) for ch in text if ch in HEBREW)
@@ -8,8 +8,8 @@ def normalize_text(text):
 def is_subsequence(text, pattern):
     j = 0
     for ch in text:
-        if j < len(pattern) and ch == pattern[j]:
-            j += 1
+        if ch != pattern[j]: continue
+        j += 1
         if j == len(pattern):
             return True
     return False
@@ -17,11 +17,11 @@ def is_subsequence(text, pattern):
 # ----- search conditions
 
 books = ['Jeremiah', 'Amos', 'Joshua', 'Nahum', 'Zephaniah', 'Obadiah', 'Exodus', 'Numbers', 'Judges', 'Ezra', 'Isaiah', 'Chronicles_1', 'Joel', 'Proverbs', 'Zechariah', 'Chronicles_2', 'Malachi', 'Samuel_1', 'Haggai', 'Nehemiah', 'Samuel_2', 'Song_of_Songs', 'Kings_2', 'Genesis', 'Kings_1', 'Esther', 'Psalms', 'Job', 'Daniel', 'Ruth', 'Micah', 'Habakkuk', 'Jonah', 'Hosea', 'Deuteronomy', 'Ecclesiastes', 'Lamentations', 'Leviticus', 'Ezekiel']
-name = "אליהו"
-search_type = "bot"
+name = "אבשלום"
+search_type = "let"
 max_len = 1000
 
-name = normalize_text(name)
+norm_name = normalize_text(name)
 
 # ----- search methods 
 
@@ -41,13 +41,13 @@ for book in books :
 			if len(pasuk) > max_len : continue
 			ok = False
 			if search_type=="reg" : 
-				ok = letters[0] == name[0] and letters[-1] == name[-1]
+				ok = letters[0] == norm_name[0] and letters[-1] == norm_name[-1]
 			elif search_type=="let" : 
-				ok = is_subsequence(letters, name)
+				ok = is_subsequence(letters, norm_name)
 			elif search_type=="bot" : 
 				ok = (
-                    letters[0] == name[0] and letters[-1] == name[-1]
-                    and is_subsequence(letters, name)
+                    letters[0] == norm_name[0] and letters[-1] == norm_name[-1]
+                    and is_subsequence(letters, norm_name)
                 )
 			if ok:
 				pasuk_num = line[2:5]
