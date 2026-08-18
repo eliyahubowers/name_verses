@@ -10,6 +10,14 @@ python script for finding Tanach verses corresponding with a name. The reasoning
   - searches Tanach.txt based off of input name
 - pesukim_for_אבשלום.txt
   - example of output from verse_search.py using name "אבשלום"
+ 
+## Search types
+- Regular 'reg'
+  - finds pesukim that begin and end with the first and last letter of the name
+- Letters 'let'
+  - finds pesukim that contain all letters of the name in order
+- Both 'bot'
+  - finds pesukim that fulfill both of the above
 
 ## Text source
 All text is sourced from tanach.us. More specifically: https://tanach.us/TextFiles/Tanach.txt.zip. Information about the file formatting can be found here: https://tanach.us/Pages/TextFiles.html. As stated on their [website](https://tanach.us/License.html) all tanach text is free to copy.
